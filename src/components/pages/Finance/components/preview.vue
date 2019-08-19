@@ -16,23 +16,23 @@
 <div class="title-main">
     <div class="left-main">
         <span class="span01">七日年化</span>
-        <span class="span02" id="interest">{{previewData.annualInterestRate}}</span>
+        <span class="span02" id="interest">{{previewData.annualInterestRate}}%</span>
     </div>
     <div class="left-main">
         <span class="span01">产品期限</span>
-        <span class="span02 left-main-active" id="day">{{previewData.productLife}}</span>
+        <span class="span02 left-main-active" id="day">{{previewData.productLife}}天</span>
     </div>
     <div class="title-main-tip">
-        <span class="span01" id="risk">{{previewData.riskLevel===1?'低风险'?previewData.riskLevel===2:'中等风险':'高风险'}}</span>
-        <span class="span02" id="profit">万份收益</span>
+        <span class="span01" id="risk">{{previewData.riskLevel===1?'低风险':'中等风险'}}</span>
+        <span class="span02" id="profit">21万份收益</span>
     </div>
     <div class="step">
         <div class="step-loading"></div>
         <div class="radius"></div>
     </div>
     <div class="step-tip">
-        <span class="span01" id="cast">已投金额:</span>
-        <span class="span02" id="surplus">剩余可投：999元</span>
+        <span class="span01" id="cast">已投金额:20000元</span>
+        <span class="span02" id="surplus">剩余可投：999万元</span>
     </div>
 </div>
 <div class="main-bg"></div>
@@ -48,13 +48,13 @@
                 <th class="table-bg">票据类型</th>
                 <th>{{previewData.billType}}</th>
                 <th class="table-bg">票面金额</th>
-                <th class="table-active">{{previewData.faceAmount}}</th>
+                <th class="table-active">{{previewData.faceAmount}}元</th>
             </tr>
             <tr align="center">
                 <th class="table-bg">已投金额</th>
-                <th class="table-active" id="invested">1000</th>
+                <th class="table-active" id="invested">1000元</th>
                 <th class="table-bg">产品金额</th>
-                <th class="table-active" id="prducts">10000</th>
+                <th class="table-active" id="prducts">10000元</th>
             </tr>
             <tr align="center">
                 <th class="table-bg">还款方式</th>
@@ -91,7 +91,7 @@
                 <th class="table-bg">法人代表人</th>
                 <th id="person">{{previewData.legalPerson}}</th>
                 <th class="table-bg">注册资本</th>
-                <th id="capital">{{previewData.registeredCapital}}</th>
+                <th id="capital">{{previewData.registeredCapital}}万元</th>
             </tr>
             <tr align="center">
                 <th class="table-bg">企业地址</th>
@@ -286,7 +286,7 @@ export default {
 
 .step-loading {
   height: 100%;
-  width: 37.9%;
+  width: 1%;
   background: #cc3333;
 }
 
@@ -297,7 +297,7 @@ export default {
   border-radius: 50%;
   position: absolute;
   top: -4px;
-  left: 37.9%;
+  left: 1%;
 }
 
 .step-tip {
@@ -373,6 +373,7 @@ export default {
   font-weight: normal !important;
   color: #666666;
   font-size: 12px;
+  width: 25%;
 }
 
 .table-bg {

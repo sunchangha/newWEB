@@ -29,8 +29,8 @@
                 </el-table-column>
                 <el-table-column prop="merchantName" label="企业名称"  align="center">
                 </el-table-column>
-                <el-table-column prop="productType" label="项目分类"  :formatter="formatRole"  align="center">
-                </el-table-column>
+                <!-- <el-table-column prop="productType" label="项目分类"  :formatter="formatRole"  align="center">
+                </el-table-column> -->
                 <el-table-column prop="name" label="项目名称"  align="center">
                 </el-table-column>
                 <el-table-column prop="annualInterestRate" label="项目年化收益"  align="center">
@@ -156,7 +156,7 @@
                                 </el-form-item>
                             </div>
                              <div class="from_item">
-                                <el-form-item label="年化利率">
+                                <el-form-item label="年化利率" prop="annualInterestRate">
                                      <el-input v-model="form.annualInterestRate" class="handle-input mr10"  placeholder="请输入年利率"></el-input>
                                 </el-form-item>
                             </div>
@@ -390,7 +390,7 @@
                                 </el-form-item>
                             </div>
                              <div class="from_item">
-                                <el-form-item label="年化利率">
+                                <el-form-item label="年化利率" prop="annualInterestRate">
                                      <el-input v-model="editform.annualInterestRate" class="handle-input mr10" placeholder="请输入年利率"></el-input>
                                 </el-form-item>
                             </div>
@@ -688,9 +688,6 @@ export default {
         legalPerson: [
           { required: true, message: "请输入法人代表", trigger: "blur" }
         ],
-        telephone: [
-          { required: true, message: "请输入联系电话", trigger: "blur" }
-        ],
         registeredCapital: [
           { required: true, message: "请输入注册资本", trigger: "blur" }
         ],
@@ -708,7 +705,23 @@ export default {
         ],
         limitNumber: [
           { required: true, message: "请输入限制份数", trigger: "blur" }
-        ]
+        ],
+        telephone: [
+          { required: true, message: "不能为空", trigger: "blur"},
+          {pattern: /^[\d\.]+$/,message: "只能输入数字"}
+        ],
+        priceAmount: [
+          { required: true, message: "不能为空", trigger: "blur"},
+          {pattern: /^[\d\.]+$/,message: "只能输入数字"}
+        ],
+        annualInterestRate: [
+          { required: true, message: "不能为空", trigger: "blur"},
+          {pattern: /^[\d\.]+$/,message: "只能输入数字"}
+        ],
+        faceAmount: [
+          { required: true, message: "不能为空", trigger: "blur"},
+          {pattern: /^[\d\.]+$/,message: "只能输入数字"}
+        ],
       },
       fileList1: [],
       fileList2: [],
