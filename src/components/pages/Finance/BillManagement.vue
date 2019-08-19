@@ -109,8 +109,8 @@
                                     </div>
                                      <div class="from_item">
                                         <el-form-item label="企业规模" prop="enterpriseSize">
-                                            <el-select v-model="form.enterpriseSize" @click.native="getSelectInfo('product_scale')"  class="handle-input mr10" placeholder="请选择"  >
-                                                <el-option v-for="item in product_scale" :key="item.index" :label="item.label" :value="item.value">
+                                            <el-select v-model="form.enterpriseSize"   @click.native="getSelectInfo('product_scale')"  class="handle-input mr10" placeholder="请选择企业规模"  >
+                                                <el-option v-for="item in product_scale" :key="item.index" :label="item.label" :value="item.value" >
                                                 </el-option>
                                             </el-select>
                                         </el-form-item>
@@ -142,37 +142,37 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="票面金额" prop="faceAmount">
-                                       <el-input v-model="form.faceAmount" class="handle-input mr10"></el-input>
+                                       <el-input v-model="form.faceAmount" class="handle-input mr10"  placeholder="请输入票面金额"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="单价金额" prop="priceAmount">
-                                     <el-input v-model="form.priceAmount" class="handle-input mr10"></el-input>
+                                     <el-input v-model="form.priceAmount" class="handle-input mr10"  placeholder="请输入单价金额"></el-input>
                                 </el-form-item>
                            </div>
                             <div class="from_item">
                                 <el-form-item label="限制份数" prop="limitNumber">
-                                    <el-input v-model="form.limitNumber" class="handle-input mr10"></el-input>
+                                    <el-input v-model="form.limitNumber" class="handle-input mr10"  placeholder="请输入份数"></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="年化利率">
-                                     <el-input v-model="form.annualInterestRate" class="handle-input mr10"></el-input>
+                                     <el-input v-model="form.annualInterestRate" class="handle-input mr10"  placeholder="请输入年利率"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="综合费率">
-                                     <el-input v-model="form.comprehensiveRate" class="handle-input mr10"></el-input>
+                                     <el-input v-model="form.comprehensiveRate" class="handle-input mr10"  placeholder="请输入综合费率"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="还款来源">
-                                    <el-input v-model="form.paymentSource" class="handle-input mr10"></el-input>
+                                    <el-input v-model="form.paymentSource" class="handle-input mr10"  placeholder="请输入还款来源"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="还款方式">
-                                    <el-select v-model="form.paymentMethod" @click.native="getSelectInfo('product_paymentmethod')"   placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="form.paymentMethod" @click.native="getSelectInfo('product_paymentmethod')"   placeholder="请选择还款方式" class="handle-select mr10">
                                         <el-option v-for="item in product_paymentmethod" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -180,7 +180,7 @@
                            </div>
                             <div class="from_item">
                                 <el-form-item label="产品期限">
-                                    <el-select v-model="form.productLife" @click.native="getSelectInfo('product_life')"   placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="form.productLife" @click.native="getSelectInfo('product_life')"   placeholder="请选择产品期限" class="handle-select mr10">
                                         <el-option v-for="item in product_life" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -189,7 +189,7 @@
                             
                             <div class="from_item">
                                 <el-form-item label="票据类型">
-                                    <el-select v-model="form.billType"  @click.native="getSelectInfo('product_billtype')"  placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="form.billType"  @click.native="getSelectInfo('product_billtype')"  placeholder="请选择票据类型" class="handle-select mr10">
                                         <el-option v-for="item in product_billtype" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -197,7 +197,7 @@
                             </div>
                            <div class="from_item">
                                 <el-form-item label="风险等级">
-                                    <el-select v-model="form.riskLevel"  @click.native="getSelectInfo('product_risklevel')"  placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="form.riskLevel"  @click.native="getSelectInfo('product_risklevel')"  placeholder="请选择风险等级" class="handle-select mr10">
                                         <el-option v-for="item in product_risklevel" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -212,7 +212,7 @@
                             <!-- 产品标签 -->
                             <div class="from_items">
                                 <el-form-item label="产品标签">
-                                    <el-select v-model="form.productLabel" @click.native="getSelectInfo('product_label')"   placeholder="请选择"  multiple  style="width: 100%;">
+                                    <el-select v-model="form.productLabel" @click.native="getSelectInfo('product_label')"   placeholder="请选择标签"  multiple  style="width: 100%;">
                                         <el-option v-for="item in product_label" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -220,7 +220,7 @@
                            </div>
                             <div class="from_items">
                                 <el-form-item label="项目详情概述">
-                                    <el-input type="textarea" v-model="form.detail"></el-input>
+                                    <el-input type="textarea" v-model="form.detail"  placeholder="请输入项目详情"></el-input>
                                 </el-form-item>
                             </div>
                         </div>
@@ -235,22 +235,23 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="融资方名称">
-                                    <el-input  v-model="form.financersName" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.financersName" class="handle-inputs mr10"  placeholder="请输入融资方名称
+                                    "></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="统一信用代码" label-width="100px"> 
-                                    <el-input v-model="form.financersCreditCode" class="handle-inputs mr10"></el-input>
+                                    <el-input v-model="form.financersCreditCode" class="handle-inputs mr10"  placeholder="请输入信用代码"></el-input>
                                 </el-form-item>
                              </div>
                             <div class="from_item">
                                 <el-form-item label="通讯地址">
-                                    <el-input  v-model="form.financersAddress" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.financersAddress" class="handle-inputs mr10"  placeholder="请输入地址"></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="联系电话">
-                                    <el-input  v-model="form.financersPhone" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.financersPhone" class="handle-inputs mr10"  placeholder="请输入电话"></el-input>
                                 </el-form-item>
                              </div>
                         </div>                      
@@ -265,22 +266,22 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="保理方名称">
-                                    <el-input  v-model="form.factoringName" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.factoringName" class="handle-inputs mr10"  placeholder="请输入保理方名称"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="统一信用代码" label-width="100px">
-                                    <el-input v-model="form.factoringCreditCode" class="handle-inputs mr10"></el-input>
+                                    <el-input v-model="form.factoringCreditCode" class="handle-inputs mr10" placeholder="请输入信用代码"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="通讯地址">
-                                    <el-input  v-model="form.factoringAddress" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.factoringAddress" class="handle-inputs mr10" placeholder="请输入地址"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="联系电话">
-                                    <el-input  v-model="form.factoringPhone" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="form.factoringPhone" class="handle-inputs mr10" placeholder="请输入电话"></el-input>
                                 </el-form-item>
                             </div>
                         </div>
@@ -375,37 +376,37 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="票面金额" prop="faceAmount">
-                                       <el-input v-model="editform.faceAmount" class="handle-input mr10"></el-input>
+                                       <el-input v-model="editform.faceAmount" class="handle-input mr10" placeholder="请输入票面金额"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="单价金额" prop="priceAmount">
-                                     <el-input v-model="editform.priceAmount" class="handle-input mr10"></el-input>
+                                     <el-input v-model="editform.priceAmount" class="handle-input mr10" placeholder="请输入单价金额"></el-input>
                                 </el-form-item>
                            </div>
                             <div class="from_item">
                                 <el-form-item label="限制份数" prop="limitNumber">
-                                    <el-input v-model="editform.limitNumber" class="handle-input mr10"></el-input>
+                                    <el-input v-model="editform.limitNumber" class="handle-input mr10" placeholder="请输入份数"></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="年化利率">
-                                     <el-input v-model="editform.annualInterestRate" class="handle-input mr10"></el-input>
+                                     <el-input v-model="editform.annualInterestRate" class="handle-input mr10" placeholder="请输入年利率"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="综合费率">
-                                     <el-input v-model="editform.comprehensiveRate" class="handle-input mr10"></el-input>
+                                     <el-input v-model="editform.comprehensiveRate" class="handle-input mr10" placeholder="请输入综合费率"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="还款来源">
-                                    <el-input v-model="editform.paymentSource" class="handle-input mr10"></el-input>
+                                    <el-input v-model="editform.paymentSource" class="handle-input mr10" placeholder="请输入还款来源"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="还款方式">
-                                    <el-select v-model="editform.paymentMethod" @click.native="getSelectInfo('product_paymentmethod')"   placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="editform.paymentMethod" @click.native="getSelectInfo('product_paymentmethod')"   placeholder="请选择还款方式" class="handle-select mr10">
                                         <el-option v-for="item in product_paymentmethod" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -413,7 +414,7 @@
                            </div>
                             <div class="from_item">
                                 <el-form-item label="产品期限">
-                                    <el-select v-model="editform.productLife" @click.native="getSelectInfo('product_life')"   placeholder="请选择"  class="handle-select mr10">
+                                    <el-select v-model="editform.productLife" @click.native="getSelectInfo('product_life')"   placeholder="请选择产品期限"  class="handle-select mr10">
                                         <el-option v-for="item in product_life" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -422,7 +423,7 @@
                             
                             <div class="from_item">
                                 <el-form-item label="票据类型">
-                                    <el-select v-model="editform.billType"  @click.native="getSelectInfo('product_billtype')"  placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="editform.billType"  @click.native="getSelectInfo('product_billtype')"  placeholder="请选择票据类型" class="handle-select mr10">
                                         <el-option v-for="item in product_billtype" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -430,7 +431,7 @@
                             </div>
                            <div class="from_item">
                                 <el-form-item label="风险等级">
-                                    <el-select v-model="editform.riskLevel"  @click.native="getSelectInfo('product_risklevel')"  placeholder="请选择" class="handle-select mr10">
+                                    <el-select v-model="editform.riskLevel"  @click.native="getSelectInfo('product_risklevel')"  placeholder="请选择风险等级" class="handle-select mr10">
                                         <el-option v-for="item in product_risklevel" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -445,7 +446,7 @@
                             <!-- 产品标签 -->
                             <div class="from_items">
                                 <el-form-item label="产品标签">
-                                    <el-select v-model="editform.productLabel" @click.native="getSelectInfo('product_label')"  @change="editChangeData"   placeholder="请选择"  multiple  style="width: 100%;">
+                                    <el-select v-model="editform.productLabel" @click.native="getSelectInfo('product_label')"  @change="editChangeData"   placeholder="请选择标签"  multiple  style="width: 100%;">
                                         <el-option v-for="item in product_label" :key="item.value" :label="item.label" :value="item.value">
                                         </el-option>
                                     </el-select>
@@ -453,7 +454,7 @@
                            </div>
                             <div class="from_items">
                                 <el-form-item label="项目详情概述">
-                                    <el-input type="textarea" v-model="form.detail"></el-input>
+                                    <el-input type="textarea" v-model="form.detail" placeholder="请输入项目详情"></el-input>
                                 </el-form-item>
                             </div>
                         </div>
@@ -468,22 +469,22 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="融资方名称">
-                                    <el-input  v-model="editform.financersName" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.financersName" class="handle-inputs mr10" placeholder="请输入融资方名称"></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="统一信用代码" label-width="100px"> 
-                                    <el-input v-model="editform.financersCreditCode" class="handle-inputs mr10"></el-input>
+                                    <el-input v-model="editform.financersCreditCode" class="handle-inputs mr10" placeholder="请输入信用代码"></el-input>
                                 </el-form-item>
                              </div>
                             <div class="from_item">
                                 <el-form-item label="通讯地址">
-                                    <el-input  v-model="editform.financersAddress" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.financersAddress" class="handle-inputs mr10" placeholder="请输入地址"></el-input>
                                 </el-form-item>
                             </div>
                              <div class="from_item">
                                 <el-form-item label="联系电话">
-                                    <el-input  v-model="editform.financersPhone" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.financersPhone" class="handle-inputs mr10" placeholder="请输入电话"></el-input>
                                 </el-form-item>
                              </div>
                         </div>                      
@@ -498,22 +499,22 @@
                         <div>
                             <div class="from_item">
                                 <el-form-item label="保理方名称">
-                                    <el-input  v-model="editform.factoringName" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.factoringName" class="handle-inputs mr10" placeholder="请输入保理方名称"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="统一信用代码" label-width="100px">
-                                    <el-input v-model="editform.factoringCreditCode" class="handle-inputs mr10"></el-input>
+                                    <el-input v-model="editform.factoringCreditCode" class="handle-inputs mr10" placeholder="请输入信用代码"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="通讯地址">
-                                    <el-input  v-model="editform.factoringAddress" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.factoringAddress" class="handle-inputs mr10" placeholder="请输入地址"></el-input>
                                 </el-form-item>
                             </div>
                             <div class="from_item">
                                 <el-form-item label="联系电话">
-                                    <el-input  v-model="editform.factoringPhone" class="handle-inputs mr10"></el-input>
+                                    <el-input  v-model="editform.factoringPhone" class="handle-inputs mr10" placeholder="请输入电话"></el-input>
                                 </el-form-item>
                             </div>
                         </div>
