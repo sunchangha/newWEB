@@ -90,3 +90,37 @@ export const productUpDown = (query) => { // 获取用户tab表格
         data: query
     })
 }
+//数据字典
+export const getDictionary = (query) => { // 获取数据字典
+    return request({
+        url: '/api/dict/getDict',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+//根据value获取label
+export const getSelectLabel = (query) => {
+    return request({
+        url: '/api/dict/getDictLabel',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+//查询数据字典列表
+export const searchDictionaryList = (query) => {
+    return request({
+        url: '/api/dict/findDictPage',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+

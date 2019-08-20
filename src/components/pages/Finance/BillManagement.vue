@@ -353,14 +353,14 @@
                                    </div>
                                     <div class="from_item">
                                         <el-form-item label="企业资料" >
-                                            <el-upload :action="AxiosUrlImg" :headers="importHeaders"  :on-success="handleAvatarSuccess" list-type="picture-card" :on-preview="handlePictureCardPreview">
+                                            <el-upload :action="AxiosUrlImg" :headers="importHeaders" :file-list="fileList1"  :on-success="handleAvatarEditSuccess" list-type="picture-card" :on-preview="handlePictureCardPreview" :on-remove="handleRemove">
                                                 <i class="el-icon-plus"></i>
                                             </el-upload>
                                         </el-form-item>
                                     </div>
                                     <div class="from_item">
                                         <el-form-item label="交易资料">
-                                            <el-upload :action="AxiosUrlImg" :headers="importHeaders" :on-success="handleAvatarSuccessImg2" list-type="picture-card" :on-preview="handlePictureCardPreviewImg2">
+                                            <el-upload :action="AxiosUrlImg" :file-list="fileList2" :headers="importHeaders" :on-success="handleAvatarEditSuccessImg2" list-type="picture-card" :on-preview="handlePictureCardPreviewImg2" :on-remove="handleRemove">
                                                 <i class="el-icon-plus"></i>
                                             </el-upload>
                                         </el-form-item>
@@ -797,7 +797,6 @@ export default {
     getProductLabel() {
       let array1 = this.form.productLabel;
       let array2 = this.product_label;
-      console.log("array2", array2);
       let tempArray1 = [];
       for (let i = 0; i < array1.length; i++) {
         for (let k = 0; k < array2.length; k++) {
@@ -870,7 +869,6 @@ export default {
         this.product_paymentmethod = res.data.product_paymentmethod;
         this.product_billtype = res.data.product_billtype;
         this.product_risklevel = res.data.product_risklevel;
-
         this.product_life = res.data.product_life;
         this.product_label = res.data.product_label;
       });
@@ -898,7 +896,6 @@ export default {
           productClass: 1
         })
       ).then(res => {
-        console.log(res);
         // debugger
         this.tableData = res.data.records;
         this.total = res.data.total;
@@ -943,13 +940,13 @@ export default {
       if (val === "view") {
         this.disableEdit = true;
       }
-      this.getSelectInfo("product_type");
-      this.getSelectInfo("product_risklevel");
-      this.getSelectInfo("product_billtype");
-      this.getSelectInfo("product_paymentmethod");
-      this.getSelectInfo("product_status");
-      this.getSelectInfo("product_life");
-      this.getSelectInfo("product_label");
+    //   this.getSelectInfo("product_type");
+    //   this.getSelectInfo("product_risklevel");
+    //   this.getSelectInfo("product_billtype");
+    //   this.getSelectInfo("product_paymentmethod");
+    //   this.getSelectInfo("product_status");
+    //   this.getSelectInfo("product_life");
+      this.getSelectInfos("product_label");
       (this.dialogFormVisible = true), (this.curIndex = row.id);
       this.$nextTick(this.getPdtInfo(row.id));
     },
@@ -957,7 +954,15 @@ export default {
       this.isShowVisible = true
       this.previewData = row
     },
-    
+    getSelectInfos(val) {
+      getFormSelect(
+        qs.stringify({
+          type: val
+        })
+      ).then(res => {
+        this.product_label = res.data.product_label;
+      });
+    },
     //编辑时标签回显
     editProductLabel(data) {
       let array1 = data.split(",");
@@ -1017,7 +1022,7 @@ export default {
           this.editform.factoringAddress = res.data.factoringAddress;
           this.editform.factoringPhone = res.data.factoringPhone;
           for (var item in res.data.listimg1) {
-            var img = {};
+            let img = {};
             img.name = "url";
             img.id = res.data.listimg1[item].id;
             img.url = res.data.listimg1[item].filePath;
@@ -1025,7 +1030,7 @@ export default {
           }
           this.fileList1 = imglist;
           for (var item2 in res.data.listimg2) {
-            var img2 = {};
+            let img2 = {};
             img2.name = "url";
             img2.id = res.data.listimg2[item2].id;
             img2.url = res.data.listimg2[item2].filePath;
@@ -1074,8 +1079,8 @@ export default {
           factoringCreditCode: this.editform.factoringCreditCode,
           factoringAddress: this.editform.factoringAddress,
           factoringPhone: this.editform.factoringPhone,
-          img1: this.editform.img1 != null ? this.editform.img1.toString() : "",
-          img2: this.editform.img2 != null ? this.editform.img2.toString() : "",
+          img1: this.editform.img1.toString(),
+          img2: this.editform.img2.toString(),
           status: this.editform.status
         })
       ).then(res => {
@@ -1154,7 +1159,18 @@ export default {
     //图片放大查看
     //上传图片
     handleRemove(file, fileList) {
-      console.log(file, fileList);
+    GetDelProductImg(
+        qs.stringify({
+          id:file.id
+        })
+      ).then(res => {
+    if (res.code === 200) {
+      this.$message({
+            message: "删除成功",
+            type: "success"
+          });
+     }
+    });
     },
     //点击图片列表中已经上传的图片回调函数
     handlePictureCardPreview(file) {
@@ -1186,18 +1202,6 @@ export default {
     OnAddpro() {
       this.EditVisible = true;
     },
-    //表单验证通过
-    // submitForm(formName) {
-
-    //     this.$refs[formName].validate((valid) => {
-    //         if (valid) {
-    //             alert('submit!');
-    //          } else {
-    //             console.log('error submit!!');
-    //             return false;
-    //         }
-    //     });
-    // },
     //添加产品
     OnAddProduct(formName) {
       this.$refs[formName].validate(valid => {
@@ -1234,8 +1238,8 @@ export default {
               factoringCreditCode: this.form.factoringCreditCode,
               factoringAddress: this.form.factoringAddress,
               factoringPhone: this.form.factoringPhone,
-              img1: this.form.img1 != null ? this.form.img1.toString() : "",
-              img2: this.form.img2 != null ? this.form.img2.toString() : ""
+              img1: this.form.img1.toString(),
+              img2: this.form.img2.toString()
             })
           ).then(res => {
             if (res.code === 200) {
@@ -1244,7 +1248,6 @@ export default {
             }
           });
         } else {
-          console.log("error submit!!");
           return false;
         }
       });

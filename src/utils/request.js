@@ -10,10 +10,10 @@ const service = axios.create({
 })
 /****** request拦截器==>对请求参数做处理 ******/
 service.interceptors.request.use( config => {
-    console.log(config)
+    // console.log(config)
     return config;
 }, error => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject();
 })
 
@@ -25,7 +25,7 @@ service.interceptors.response.use(response => {
         Promise.reject();
     }
 }, error => {
-    console.log(error);
+    // console.log(error);
     return Promise.reject();
 })
 

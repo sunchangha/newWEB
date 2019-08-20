@@ -39,6 +39,12 @@ export default new Router({
                     component: resolve => require(['../components/pages/BankList/banList.vue'], resolve),
                     meta: { title: '银行定存' }
                 },
+                {
+                    path: '/settingDictionary',
+                    component: resolve => require(['../components/pages/Dictionary/settingDictionary.vue'], resolve),
+                    meta: { title: '字典设置' }
+                },
+                
                 // {
                 //     path: '/table',
                 //     component: resolve => require(['../components/page/BaseTable.vue'], resolve),

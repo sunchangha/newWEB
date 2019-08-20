@@ -73,6 +73,17 @@
                             }
                         ]
                     },
+                    {
+                        icon: 'el-icon-lx-calendar',
+                        index: '4',
+                        title: '数据字典',
+                        subs: [
+                           {
+                                index: 'settingDictionary',
+                                title: '字典设置'
+                            }
+                        ]
+                    },
                     // {
                     //     icon: 'el-icon-lx-cascades',
                     //     index: 'table',
