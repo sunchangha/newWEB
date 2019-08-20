@@ -123,4 +123,28 @@ export const searchDictionaryList = (query) => {
         data: query
     })
 }
+//删除
+export const deleteDictionaryList = (query) => {
+    return request({
+        url: '/api/dict/delDict',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+//删除
+export const addDictionaryList = (query) => {
+    return request({
+        url: '/api/dict/addDict',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+
+
 
