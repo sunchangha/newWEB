@@ -123,7 +123,7 @@ export const searchDictionaryList = (query) => {
         data: query
     })
 }
-//删除
+//删除字典
 export const deleteDictionaryList = (query) => {
     return request({
         url: '/api/dict/delDict',
@@ -134,7 +134,7 @@ export const deleteDictionaryList = (query) => {
         data: query
     })
 }
-//删除
+//添加字典
 export const addDictionaryList = (query) => {
     return request({
         url: '/api/dict/addDict',
@@ -145,6 +145,14 @@ export const addDictionaryList = (query) => {
         data: query
     })
 }
-
-
-
+//修改
+export const editDictionaryList = (query) => {
+    return request({
+        url: '/api/dict/updateDict',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}

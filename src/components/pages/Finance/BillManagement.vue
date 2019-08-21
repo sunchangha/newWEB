@@ -1266,7 +1266,6 @@ export default {
 .handle-select {
    width: 185px;
 }
-
 .handle-input {
    width: 185px;
   display: inline-block;

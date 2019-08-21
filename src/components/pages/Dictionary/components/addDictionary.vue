@@ -1,11 +1,12 @@
 <template>
 <div>
+    <el-dialog :title="editOrAdd===1 ? '添加字典信息':'修改字典信息'" :visible.sync="addVisible"  center fullscreen @close="closeDialog('ruleFormChild')">
     <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>添加字典信息</span>
                 </div>
                 <div class="text item">
-                    <el-form  :model="form"  :rules="rules"  ref="ruleForm" label-width="100px">
+                    <el-form  :model="form"  :rules="rules"  ref="ruleFormChild" label-width="100px">
                         <div>
                             <div class="from_item">
                                 <el-form-item label="id"  prop="id">
@@ -29,7 +30,7 @@
                             </div>
                              <div class="from_item">
                                 <el-form-item label="type"  prop="type">
-                                    <el-input v-model="form.priceAmount" clearable   placeholder="请输入type" class="handle-input mr10"></el-input>
+                                    <el-input v-model="form.type" clearable   placeholder="请输入type" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                             <div class="from_item">
@@ -58,13 +59,20 @@
                     </el-form>
                 </div>
             </el-card>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="addVisible = false">取 消</el-button>
+                <el-button type="primary" @click="OnAddProduct('ruleForm')">确 定</el-button>
+            </span>
+    </el-dialog>
 </div>
     
 </template>
 <script>
 export default {
   name: "addDictionary",
-  props: {},
+  props: {
+      productTypeData:Object,
+  },
   data() {
     return {
         form:{
@@ -83,7 +91,13 @@ export default {
       },
     };
   },
-  created() {},
+  created() {
+      let b = (JSON.stringify(this.productTypeData) == "{}");
+      if(!b){
+          this.form=this.productTypeData
+      }
+      
+  },
   methods: {}
 };
 </script>
