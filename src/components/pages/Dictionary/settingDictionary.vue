@@ -20,7 +20,7 @@
                         <div v-if="isEdit" class="btn_blocks">
                         <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
                         <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
+                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType(1)">删除</el-button>
                         <el-button size="mini" icon="el-icon-back"  @click="restCancel(1)">取消</el-button>
                         </div>
                     </el-form-item>
@@ -33,8 +33,8 @@
                         </div>
                         <div v-if="isEdit2" class="btn_blocks">
                         <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
+                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType(2)">修改</el-button>
+                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType(2)">删除</el-button>
                         <el-button size="mini" icon="el-icon-back"  @click="restCancel(2)">取消</el-button>
                         </div>
                     </el-form-item>
@@ -195,7 +195,7 @@
             <div class="del-dialog-cnt">删除不可恢复，是否确定删除？</div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="delVisible = false">取 消</el-button>
-                <el-button type="primary" @click="deleteRow">确 定</el-button>
+                <el-button type="primary" @click="deleteRow(delNum)">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -274,7 +274,9 @@ export default {
       productRisklevel:"",
       productLabels:"",
       addVisible: false,
-      delVisible: false
+      delVisible: false,
+      delNum:0,
+      delId:''
     };
   },
   created() {
@@ -335,9 +337,6 @@ export default {
        this.isEdit8 = false;
       }
     },
-    onSubmit() {
-      this.$message.success("提交成功！");
-    },
     //获取数据字典
     getSelectInfo(val) {
       this.selectType = val;
@@ -363,10 +362,13 @@ export default {
       this.editform = {};
     },
     //修改条目
-    editProductType() {
+    editProductType(num) {
       this.editOrAdd = 0;
       this.addVisible = true;
-      this.editform = this.productTypeData;
+      if(num===1){
+       this.editform = this.productTypeData;
+      }
+      
     },
     edit() {
       editDictionaryList(
@@ -413,50 +415,6 @@ export default {
         }
       });
     },
-     getLabel(val,isval){
-        getSelectLabel(
-        qs.stringify({
-          value: val,
-          type: this.selectType
-        })
-      ).then(res => {
-        if (res.code == 200) {
-          if(isval===1){
-            this.selectVal = 0
-            this.productTypeData = this.getID(res.data);
-          }
-          if(isval===2){
-            this.selectStatus = 0
-            this.productTypeData = this.getID(res.data);
-          }
-          if(isval===3){
-            this.selectScale = 0
-            this.productTypeData = this.getID(res.data);
-          }
-          if(isval===4){
-            this.selectPaymentmethod = 0
-            this.productTypeData = this.getID(res.data);
-          }
-          if(isval===5){
-            this.selectLife = 0
-            this.productTypeData = this.getID(res.data);
-          }
-          if(isval===6){
-            this.selectBilltype = 0
-            this.productTypeData = this.getID(res.data);
-          }
-           if(isval===7){
-            this.selectRisklevel = 0
-            this.productTypeData = this.getID(res.data);
-          }
-           if(isval===8){
-            this.selectLabels = 0
-            this.productTypeData = this.getID(res.data);
-          }
-        }
-      });
-
-     },
     //获取选中条目
     handleChange(val) {
       this.getLabel(val,1)
@@ -482,9 +440,54 @@ export default {
     handleChangeLabels(val){
       this.getLabel(val,8)
     },
+    getLabel(val,isval){
+        getSelectLabel(
+        qs.stringify({
+          value: val,
+          type: this.selectType
+        })
+      ).then(res => {
+        if (res.code == 200) {
+          if(isval===1){
+            this.selectVal = 0
+            this.productTypeData = this.getID(this.pt_type,res.data);
+          }
+          if(isval===2){
+            this.selectStatus = 0
+            this.productStatus = this.getID(this.pt_status,res.data);
+            console.log("this.productStatus",this.productStatus)
+          }
+          if(isval===3){
+            this.selectScale = 0
+            this.productScale = this.getID(this.pt_scale,res.data);
+          }
+          if(isval===4){
+            this.selectPaymentmethod = 0
+            this.productPaymentmethod = this.getID(this.pt_paymentmethod,res.data);
+          }
+          if(isval===5){
+            this.selectLife = 0
+            this.productLife = this.getID(this.pt_life,res.data);
+          }
+          if(isval===6){
+            this.selectBilltype = 0
+            this.productBilltype = this.getID(this.pt_billtype,res.data);
+          }
+           if(isval===7){
+            this.selectRisklevel = 0
+            this.productRisklevel = this.getID(this.pt_risklevel,res.data);
+          }
+           if(isval===8){
+            this.selectLabels = 0
+            this.productLabels = this.getID(this.pt_label,res.data);
+          }
+        }
+      });
+
+     },
     //获取选中Id
-    getID(val) {
-      let array1 = this.pt_type;
+    getID(dictionaryData,val) {
+      let array1 = dictionaryData;
       let tempArray1 = {};
       for (let i = 0; i < array1.length; i++) {
         if (val === array1[i].label) {
@@ -494,16 +497,24 @@ export default {
       return tempArray1;
     },
     //删除选中条目字段
-    delectProductType() {
+    delectProductType(num) {
+      this.delNum = num
       this.delVisible = true;
     },
-    deleteRow() {
+    deleteRow(val) {
+      if(val===1){
+        this.delId = this.productTypeData.id
+      }
+       if(val===2){
+        this.delId = this.productStatus.id
+      }
       deleteDictionaryList(
         qs.stringify({
-          id: this.productTypeData.id
+          id: this.delId
         })
       ).then(res => {
         if (res.code == 200) {
+          this.delVisible = false
           this.$message.success("删除成功！");
           this.getSelectInfo("product_type");
         }
