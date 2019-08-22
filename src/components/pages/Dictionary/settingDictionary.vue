@@ -1,162 +1,144 @@
 <template>
-    <div>
+    <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-calendar"></i>数据字典</el-breadcrumb-item>
-                <el-breadcrumb-item>字典设置</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i>字典设置</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
-            <div class="form-box">
-                <div style="padding:15px;color:red;">请选择后进行操作</div>
-                <el-form ref="form" :model="form" label-width="100px">
-                    <el-form-item label="项目分类">
-                        <el-select v-model="form.product_type" placeholder="请选择" @click.native="getSelectInfo('product_type')" @change="handleChange">
-                             <el-option v-for="item in pt_type" :key="item.value" :label="item.label" :value="item.value"></el-option>
+            <div class="handle-box" >
+                字典名称：<el-select v-model="search.label" clearable placeholder="请选择" class="handle-input mr10">
+                            <el-option v-for="item in selectData" :key="item.value" :label="item.text" :value="item.value"></el-option>
                         </el-select>
-                        <div v-if="selectVal===0" class="btn_block">
-                        <el-button  v-if="!isEdit" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(1)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType(1)">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(1)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="状态">
-                        <el-select v-model="form.product_status" placeholder="请选择" @click.native="getSelectInfo('product_status')" @change="handleChangeStatus">
-                          <el-option v-for="item in pt_status" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectStatus===0" class="btn_block">
-                        <el-button  v-if="!isEdit2" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(2)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit2" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType(2)">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType(2)">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(2)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="企业规模">
-                        <el-select v-model="form.product_scale" placeholder="请选择" @click.native="getSelectInfo('product_scale')" @change="handleChangeScale">
-                             <el-option v-for="item in pt_scale" :key="item.index" :label="item.label" :value="item.value" ></el-option>
-                        </el-select>
-                        <div v-if="selectScale===0" class="btn_block">
-                        <el-button  v-if="!isEdit3" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(3)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit3" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(3)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="还款方式">
-                        <el-select v-model="form.product_paymentmethod" placeholder="请选择" @click.native="getSelectInfo('product_paymentmethod')" @change="handleChangePaymentmethod">
-                            <el-option v-for="item in pt_paymentmethod" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectPaymentmethod===0" class="btn_block">
-                        <el-button  v-if="!isEdit4" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(4)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit4" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(4)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="产品期限">
-                        <el-select v-model="form.product_life" placeholder="请选择" @click.native="getSelectInfo('product_life')" @change="handleChangeLife">
-                            <el-option v-for="item in pt_life" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectLife===0" class="btn_block">
-                        <el-button  v-if="!isEdit5" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(5)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit5" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(5)">取消</el-button>
-                        </div>
-                        
-                    </el-form-item>
-                    <el-form-item label="票据类型">
-                        <el-select v-model="form.product_billtype" placeholder="请选择" @click.native="getSelectInfo('product_billtype')" @change="handleChangeBilltype">
-                           <el-option v-for="item in pt_billtype" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectBilltype===0" class="btn_block">
-                        <el-button  v-if="!isEdit6" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(6)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit6" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(6)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="风险等级">
-                        <el-select v-model="form.product_risklevel" placeholder="请选择" @click.native="getSelectInfo('product_risklevel')" @change="handleChangeRisklevel">
-                            <el-option v-for="item in pt_risklevel" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectRisklevel===0" class="btn_block">
-                        <el-button  v-if="!isEdit7" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(7)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit7" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(7)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                    <el-form-item label="产品标签">
-                        <el-select v-model="form.product_label" placeholder="请选择" @click.native="getSelectInfo('product_label')" @change="handleChangeLabels">
-                           <el-option v-for="item in pt_label" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <div v-if="selectLabels===0" class="btn_block">
-                        <el-button  v-if="!isEdit8" size="mini" icon="el-icon-setting" type="info" style="margin-left:15px;" plain @click="clickProductType(8)">操作</el-button>
-                        </div>
-                        <div v-if="isEdit8" class="btn_blocks">
-                        <el-button size="mini" type="primary" icon="el-icon-circle-plus" plain @click="addProductType">添加</el-button>
-                        <el-button size="mini" type="primary" icon="el-icon-edit" plain @click="editProductType">修改</el-button>
-                        <el-button size="mini" type="danger" icon="el-icon-delete" plain @click="delectProductType">删除</el-button>
-                        <el-button size="mini" icon="el-icon-back"  @click="restCancel(8)">取消</el-button>
-                        </div>
-                    </el-form-item>
-                </el-form>
+                <div style="margin-top:10px;display:inline-block">
+                        <el-button type="primary" icon="el-icon-search" @click="OnSearch">搜索</el-button>
+                        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAdd">添加产品信息</el-button>
+                    </div>
+            </div>
+            <el-table :data="tableData" border class="table">
+                <el-table-column type="index" label="序号" width="50" align="center">
+                </el-table-column>
+                <el-table-column prop="label" label="字典名称"  align="center">
+                </el-table-column>
+                <el-table-column prop="type" label="字典类型"   align="center">
+                </el-table-column>
+                <el-table-column prop="description" label="字典描述"  align="center">
+                </el-table-column>
+                <el-table-column prop="createTime" label="创建时间"   align="center">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.createTime | formatDate}}</div>
+                    </template>
+                </el-table-column>
+                <el-table-column prop="updateTime" label="更新时间"   align="center">
+                    <template slot-scope="scope">
+                        <div>{{scope.row.createTime | formatDate}}</div>
+                    </template>
+                </el-table-column>
+                 <el-table-column label="操作" fixed="right" width="200"  align="center">
+                    <template slot-scope="scope">
+                        <!-- <el-button type="text" icon="el-icon-edit" @click="handleAdd(scope.$index, scope.row)">添加</el-button> -->
+                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                        <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <div class="pagination">
+                <el-pagination @size-change="handleSizeChange" background @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 30, 50]" :total="total" :page-size="TotalNum" layout="total, sizes, prev, pager, next, jumper" ></el-pagination>
             </div>
         </div>
-        <el-dialog :title="editOrAdd===1 ? '添加字典信息':'修改字典信息'" :visible.sync="addVisible"  center fullscreen @close="closeDialog('ruleFormChild')">
-           <el-card class="box-card">
+        <!-- 添加产品信息-->
+        <el-dialog title="添加字典信息" :visible.sync="EditVisible"  center fullscreen @close="closeDialog('ruleForm')">
+            <el-card class="box-card">
                 <div slot="header" class="clearfix">
-                    <span>{{editOrAdd===1 ? '添加字典信息':'修改字典信息'}}</span>
+                    <span>添加字典信息</span>
                 </div>
                 <div class="text item">
-                    <el-form  :model="editform"  :rules="rules"  ref="ruleFormChild" label-width="100px">
+                    <el-form  :model="form"  :rules="rules"  ref="ruleForm" label-width="90px">
                         <div>
-                            <div class="from_item">
-                                <el-form-item label="id"  prop="id">
-                                    <el-input v-model="editform.id" clearable placeholder="请输入id" class="handle-input mr10"></el-input>
+                           <!-- <div class="from_item" prop="id"> 
+                                <el-form-item label="id"  >
+                                    <el-input v-model="form.id" disabled clearable placeholder="请输入id" class="handle-input mr10"></el-input>
                                 </el-form-item>
-                            </div>
+                            </div > -->
+                            <div class="from_item">
+                                <el-form-item label="字典名称" prop="label">
+                                    <el-input v-model="form.label" clearable placeholder="请输入字典名称" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="value" prop="value">
+                                    <el-input v-model="form.value" clearable placeholder="请输入value" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                             <div class="from_item">
+                                <el-form-item label="字典类型"  prop="type">
+                                    <el-input v-model="form.type" clearable placeholder="请输入字典类型" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="字典描述"  prop="description">
+                                    <el-input v-model="form.description" clearable placeholder="请输入字典描述" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="sort" prop="sort">
+                                    <el-input v-model="form.sort" clearable placeholder="请输入sort" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                             <div class="from_item">
+                                <el-form-item label="创建时间" prop="createTime">
+                                  <el-date-picker v-model="form.createTime" width="160" type="datetime" placeholder="选择日期时间">
+                                </el-date-picker>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="更新时间" prop="updateTime">
+                                  <el-date-picker v-model="form.updateTime" width="160" type="datetime" placeholder="选择日期时间">
+                                </el-date-picker>
+                                </el-form-item>
+                            </div >
+                        </div>                 
+                    </el-form>
+                </div>
+            </el-card>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="EditVisible = false">取 消</el-button>
+                <el-button type="primary" @click="OnAddProduct('ruleForm')">确 定</el-button>
+            </span>
+        </el-dialog>
+
+        <!-- 修改产品信息 -->
+        <el-dialog title="修改银行定存信息" :visible.sync="dialogFormVisible"  center fullscreen @close="closeDialog('ruleForms')">
+           <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>修改字典信息</span>
+                </div>
+                <div class="text item">
+                    <el-form  :model="editform"  :rules="rules"  ref="ruleForms" label-width="100px">
+                             <div>
+                            <div class="from_item" prop="id"> 
+                                <el-form-item label="id"  >
+                                    <el-input v-model="editform.id" disabled clearable placeholder="请输入id" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="字典名称" prop="label">
+                                    <el-input v-model="editform.label" clearable placeholder="请输入字典名称" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
                             <div class="from_item">
                                 <el-form-item label="value" prop="value">
                                     <el-input v-model="editform.value" clearable placeholder="请输入value" class="handle-input mr10"></el-input>
                                 </el-form-item>
-                            </div>
-                            <div class="from_item">
-                                <el-form-item label="label" prop="label">
-                                    <el-input v-model="editform.label" clearable placeholder="请输入label" class="handle-input mr10"></el-input>
-                                </el-form-item>
-                            </div>
-                            <div class="from_item">
-                                <el-form-item label="description" prop="description">
-                                    <el-input v-model="editform.description" clearable  placeholder="请输入description" class="handle-input mr10"></el-input>
-                                </el-form-item>
-                            </div>
+                            </div >
                              <div class="from_item">
-                                <el-form-item label="type"  prop="type">
-                                    <el-input v-model="editform.type" clearable   placeholder="请输入type" class="handle-input mr10"></el-input>
+                                <el-form-item label="字典类型"  prop="type">
+                                    <el-input v-model="editform.type" clearable placeholder="请输入字典类型" class="handle-input mr10"></el-input>
+                                </el-form-item>
+                            </div >
+                            <div class="from_item">
+                                <el-form-item label="字典描述"  prop="description">
+                                    <el-input v-model="editform.description" clearable placeholder="请输入字典描述" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                             <div class="from_item">
@@ -164,30 +146,25 @@
                                     <el-input v-model="editform.sort" clearable placeholder="请输入sort" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
+                             <div class="from_item">
+                                <el-form-item label="创建时间" prop="createTime">
+                                  <el-date-picker v-model="editform.createTime" width="160" type="datetime" placeholder="选择日期时间">
+                                </el-date-picker>
+                                </el-form-item>
+                            </div >
                             <div class="from_item">
-                                <el-form-item label="parentId" prop="parentId">
-                                    <el-input v-model="editform.parentId" clearable placeholder="请输入parentId" class="handle-input mr10"></el-input>
-                                </el-form-item>
-                            </div >
-                             <div class="from_item">
-                                <el-form-item label="createTime" prop="createTime">
-                                  <el-date-picker v-model="editform.createTime"  width="160"  type="datetime" placeholder="选择日期时间">
+                                <el-form-item label="更新时间" prop="updateTime">
+                                  <el-date-picker v-model="editform.updateTime" width="160" type="datetime" placeholder="选择日期时间">
                                 </el-date-picker>
                                 </el-form-item>
                             </div >
-                             <div class="from_item">
-                                <el-form-item label="updateTime" prop="updateTime">
-                                  <el-date-picker v-model="editform.updateTime"  width="160"  type="datetime" placeholder="选择日期时间">
-                                </el-date-picker>
-                                </el-form-item>
-                            </div>
-                        </div>                
+                            </div>                   
                     </el-form>
                 </div>
             </el-card>
-          <span slot="footer" class="dialog-footer">
-                <el-button @click="addVisible = false">取 消</el-button>
-                <el-button type="primary" @click="editOrAddProduct('ruleFormChild')">确 定</el-button>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                <el-button type="primary" @click="updatePdtInfo('ruleForms')">确 定</el-button>
             </span>
         </el-dialog>
         <!-- 删除提示框 -->
@@ -195,7 +172,7 @@
             <div class="del-dialog-cnt">删除不可恢复，是否确定删除？</div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="delVisible = false">取 消</el-button>
-                <el-button type="primary" @click="deleteRow(delNum)">确 定</el-button>
+                <el-button type="primary" @click="deleteRow">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -204,361 +181,389 @@
 <script>
 import qs from "qs";
 import {
-  getDictionary,
-  getSelectLabel,
   searchDictionaryList,
   deleteDictionaryList,
+  editDictionaryList,
   addDictionaryList,
-  editDictionaryList
+  DictionaryList
 } from "../../../api/index";
-import addDictionary from "./components/addDictionary";
+import { log } from "util";
 export default {
-  name: "baseform",
-  data: function() {
+  name: "bankList",
+  data() {
     return {
-      form: {
-        product_type: "",
-        product_status: "",
-        product_scale: "",
-        product_paymentmethod: "",
-        product_billtype: "",
-        product_risklevel: "",
-        product_life: "",
-        product_label: ""
+      upVisible: false,
+      downVisible: false,
+      statusId: "",
+      editBQ: "",
+      search: {
+       label:'',
+       type:'',
+       description:''
       },
-      editform: {
+      // 下拉选项框
+      form: {
         id: "",
-        value: "",
         label: "",
-        description: "",
-        type: "",
+        value: "",
+        description:"",
         sort: "",
-        parentId: "",
+        type: "",
         createTime: "",
         updateTime: ""
       },
-      editformData:{},
-      rules: {},
-      pt_type: "",
-      pt_status: "",
-      pt_scale: "",
-      pt_paymentmethod: "",
-      pt_billtype: "",
-      pt_risklevel: "",
-      pt_life: "",
-      pt_label: "",
-      selectType: "",
-      selectVal: 1,
-      selectStatus:1,
-      selectScale:1,
-      selectPaymentmethod:1,
-      selectLife:1,
-      selectBilltype:1,
-      selectRisklevel:1,
-      selectLabels:1,
-      isEdit: false,
-      isEdit2: false,
-      isEdit3: false,
-      isEdit4: false,
-      isEdit5: false,
-      isEdit6: false,
-      isEdit7: false,
-      isEdit8: false,
-      editOrAdd: 1,
-      productTypeData: "",
-      productStatus:"",
-      productScale:"",
-      productPaymentmethod:"",
-      productLife:"",
-      productBilltype:"",
-      productRisklevel:"",
-      productLabels:"",
-      addVisible: false,
-      delVisible: false,
-      delNum:0,
-      delId:''
+      editform: {
+        id: "",
+        label: "",
+        value: "",
+        description:"",
+        sort: "",
+        type: "",
+        createTime: "",
+        updateTime: ""
+      },
+      selectData:[],
+      rules: {
+        name: [{ required: true, message: "请输入产品名称", trigger: "blur" }],
+        telephone: [
+          { required: true, message: "不能为空", trigger: "blur" },
+          { pattern: /^[\d\.]+$/, message: "只能输入数字" }
+        ],
+        priceAmount: [
+          { required: true, message: "不能为空", trigger: "blur" },
+          { pattern: /^[\d\.]+$/, message: "只能输入数字" }
+        ],
+        annualInterestRate: [
+          { required: true, message: "不能为空", trigger: "blur" },
+          { pattern: /^[\d\.]+$/, message: "只能输入数字" }
+        ],
+        faceAmount: [
+          { required: true, message: "不能为空", trigger: "blur" },
+          { pattern: /^[\d\.]+$/, message: "只能输入数字" }
+        ]
+      },
+      curIndex: "",
+      delVisible: "",
+      formLabelWidth: "120px",
+      dialogFormVisible: false,
+      tableData: [],
+      //------图片上传
+      dialogImageUrl: "",
+      dialogVisible: false,
+      //文件上传
+      importHeaders: { Authorization: localStorage.getItem("Token") },
+      //分页
+      total: 1,
+      currentPage: 1,
+      TotalNum: 10,
+      EditVisible: false, //查看按钮弹框
+      delVisible: false, //删除按钮弹框
+      //    删除ID
+      RowId: ""
     };
   },
+  filters: {
+    formatDate: function(value) {
+      let date = new Date(value);
+      let y = date.getFullYear();
+      let MM = date.getMonth() + 1;
+      MM = MM < 10 ? "0" + MM : MM;
+      let d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      let h = date.getHours();
+      h = h < 10 ? "0" + h : h;
+      let m = date.getMinutes();
+      m = m < 10 ? "0" + m : m;
+      let s = date.getSeconds();
+      s = s < 10 ? "0" + s : s;
+      return y + "-" + MM + "-" + d + " " + h + ":" + m + ":" + s;
+    }
+  },
   created() {
+    this.getData();
+    this.getDictionaryList()
   },
   methods: {
+    editChangeData(val) {
+      this.editBQ = this.getProductLabels(val);
+    },
+    //    分页
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      this.getData();
+    },
+    handleSizeChange(val) {
+      this.TotalNum = val;
+      //一次显示多条val
+      this.getData();
+    },
+    
+    getDictionaryList(){
+        DictionaryList(
+        qs.stringify({
+        })
+      ).then(res => {
+        this.selectData = res.data
+      });
+
+    },
+    // 获取表格getData数据
+    getData() {
+      searchDictionaryList(
+        qs.stringify({
+          type: this.search.label,
+          page: this.currentPage,
+          size: this.TotalNum
+        })
+      ).then(res => {
+        // debugger
+        this.tableData = res.data.records;
+        this.total = res.data.total;
+      });
+    },
+    OnSearch() {
+      // 搜索
+      this.getData();
+    },
+    handleAdd() {
+      this.EditVisible = true
+    //   this.form.description = row.description;
+    //   this.form.type = row.type;
+    },
+    //产品修改方法
+    handleEdit(index, row) {
+      (this.dialogFormVisible = true), (this.curIndex = row.id);
+      console.log("row",row)
+      this.editform.id = row.id;
+      this.editform.label = row.label;
+      this.editform.value = row.value;
+      this.editform.description = row.description;
+      this.editform.sort = row.sort;
+      this.editform.type = row.type;
+      this.editform.createTime = row.createTime;
+      this.editform.updateTime = row.updateTime;
+    },
     closeDialog(formName) {
       this.$refs[formName].resetFields();
     },
-    clickProductType(num) {
-      if(num===1){
-       this.isEdit = true;
-      }
-      if(num===2){
-       this.isEdit2 = true;
-      }
-      if(num===3){
-       this.isEdit3 = true;
-      }
-      if(num===4){
-       this.isEdit4 = true;
-      }
-      if(num===5){
-       this.isEdit5 = true;
-      }
-      if(num===6){
-       this.isEdit6 = true;
-      }
-      if(num===7){
-       this.isEdit7 = true;
-      }
-      if(num===8){
-       this.isEdit8 = true;
-      }
-    },
-    restCancel(num) {
-       if(num===1){
-       this.isEdit = false;
-      }
-      if(num===2){
-       this.isEdit2 = false;
-      }
-      if(num===3){
-       this.isEdit3 = false;
-      }
-      if(num===4){
-       this.isEdit4 = false;
-      }
-      if(num===5){
-       this.isEdit5 = false;
-      }
-      if(num===6){
-       this.isEdit6 = false;
-      }
-      if(num===7){
-       this.isEdit7 = false;
-      }
-      if(num===8){
-       this.isEdit8 = false;
-      }
-    },
-    //获取数据字典
-    getSelectInfo(val) {
-      this.selectType = val;
-      getDictionary(
-        qs.stringify({
-          type: val
-        })
-      ).then(res => {
-        this.pt_type = res.data.product_type;
-        this.pt_status = res.data.product_status;
-        this.pt_scale = res.data.product_scale;
-        this.pt_paymentmethod = res.data.product_paymentmethod;
-        this.pt_billtype = res.data.product_billtype;
-        this.pt_risklevel = res.data.product_risklevel;
-        this.pt_life = res.data.product_life;
-        this.pt_label = res.data.product_label;
-      });
-    },
-    //添加条目
-    addProductType() {
-      this.editOrAdd = 1;
-      this.addVisible = true;
-      this.editform = {};
-    },
-    //修改条目
-    editProductType(num) {
-      this.editOrAdd = 0;
-      this.addVisible = true;
-      if(num===1){
-       this.editform = this.productTypeData;
-      }
-      
-    },
-    edit() {
-      editDictionaryList(
-        qs.stringify(this.editformData)
-      ).then(res => {
-        if (res.code == 200) {
-          this.$message.success("修改成功");
-          this.addVisible = false;
-          this.closeDialog("ruleFormChild");
-        }
-      });
-    },
-    add() {
-      addDictionaryList(
-        qs.stringify(this.editformData)
-      ).then(res => {
-        if (res.code == 200) {
-          this.$message.success("添加成功");
-          this.addVisible = false;
-          this.closeDialog("ruleFormChild");
-        }
-      });
-    },
-    //添加或修改
-    editOrAddProduct(formName) {
+    //提交产品修改信息
+    updatePdtInfo(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.editformData={
-            id: this.editform.id,
-            value: this.editform.value,
-            label: this.editform.label,
-            description: this.editform.description,
-            type: this.editform.type,
-            sort: this.editform.sort,
-            parentId: this.editform.parentId,
-            createTime: this.editform.createTime,
-            updateTime: this.editform.updateTime
-          }
-          if (this.editOrAdd === 1) {
-            this.add();
-          } else {
-            this.edit();
-          }
+          editDictionaryList(
+            qs.stringify({
+              id: this.editform.id,
+              label: this.editform.label,
+              value: this.editform.value,
+              description:this.editform.description,
+              sort: this.editform.sort,
+              type: this.editform.type,
+              createTime: this.dateToMs(this.editform.createTime),
+              updateTime: this.dateToMs(this.editform.updateTime),
+            })
+          ).then(res => {
+            if (res.code === 200) {
+              this.getData();
+              this.dialogFormVisible = false;
+              this.$message({
+                message: res.msg,
+                type: "success"
+              });
+            } else if (res.code === 401) {
+              this.$message({
+                message: "请退出重新登陆",
+                type: "success"
+              });
+            } else {
+              this.$message({
+                message: res.msg,
+                type: "error"
+              });
+            }
+          });
         }
       });
     },
-    //获取选中条目
-    handleChange(val) {
-      this.getLabel(val,1)
-    },
-    handleChangeStatus(val){
-      this.getLabel(val,2)
-    },
-    handleChangeScale(val){
-      this.getLabel(val,3)
-    },
-    handleChangePaymentmethod(val){
-      this.getLabel(val,4)
-    },
-    handleChangeLife(val){
-      this.getLabel(val,5)
-    },
-    handleChangeBilltype(val){
-      this.getLabel(val,6)
-    },
-    handleChangeRisklevel(val){
-      this.getLabel(val,7)
-    },
-    handleChangeLabels(val){
-      this.getLabel(val,8)
-    },
-    getLabel(val,isval){
-        getSelectLabel(
-        qs.stringify({
-          value: val,
-          type: this.selectType
-        })
-      ).then(res => {
-        if (res.code == 200) {
-          if(isval===1){
-            this.selectVal = 0
-            this.productTypeData = this.getID(this.pt_type,res.data);
-          }
-          if(isval===2){
-            this.selectStatus = 0
-            this.productStatus = this.getID(this.pt_status,res.data);
-            console.log("this.productStatus",this.productStatus)
-          }
-          if(isval===3){
-            this.selectScale = 0
-            this.productScale = this.getID(this.pt_scale,res.data);
-          }
-          if(isval===4){
-            this.selectPaymentmethod = 0
-            this.productPaymentmethod = this.getID(this.pt_paymentmethod,res.data);
-          }
-          if(isval===5){
-            this.selectLife = 0
-            this.productLife = this.getID(this.pt_life,res.data);
-          }
-          if(isval===6){
-            this.selectBilltype = 0
-            this.productBilltype = this.getID(this.pt_billtype,res.data);
-          }
-           if(isval===7){
-            this.selectRisklevel = 0
-            this.productRisklevel = this.getID(this.pt_risklevel,res.data);
-          }
-           if(isval===8){
-            this.selectLabels = 0
-            this.productLabels = this.getID(this.pt_label,res.data);
-          }
-        }
-      });
-
-     },
-    //获取选中Id
-    getID(dictionaryData,val) {
-      let array1 = dictionaryData;
-      let tempArray1 = {};
-      for (let i = 0; i < array1.length; i++) {
-        if (val === array1[i].label) {
-          tempArray1 = array1[i];
-        }
-      }
-      return tempArray1;
-    },
-    //删除选中条目字段
-    delectProductType(num) {
-      this.delNum = num
+    handleDelete(index, row) {
+      this.RowId = row.id;
       this.delVisible = true;
     },
-    deleteRow(val) {
-      if(val===1){
-        this.delId = this.productTypeData.id
-      }
-       if(val===2){
-        this.delId = this.productStatus.id
-      }
+    // 确定删除
+    deleteRow() {
       deleteDictionaryList(
         qs.stringify({
-          id: this.delId
+          id: this.RowId
         })
       ).then(res => {
-        if (res.code == 200) {
-          this.delVisible = false
-          this.$message.success("删除成功！");
-          this.getSelectInfo("product_type");
+        this.delVisible = false;
+        console.log("res",res)
+        if (res.code === 200) {
+          this.getData();
+          this.$message({
+            message: res.msg,
+            type: "success"
+          });
+        } else if (res.code === 401) {
+          this.$message({
+            message: "请退出重新登陆",
+            type: "success"
+          });
+        }else {
+          this.$message({
+            message: res.msg,
+            type: "error"
+          });
         }
       });
     },
+    //显示添加产品弹框
+    OnAddpro() {
+      this.EditVisible = true;
+    },
+
+    formatDate(date) {
+      if (typeof date == "string") {
+        return this.formatDate2(date);
+      }
+      var y = date.getFullYear();
+      var m = date.getMonth() + 1;
+      m = m < 10 ? "0" + m : m;
+      var d = date.getDate();
+      d = d < 10 ? "0" + d : d;
+      return y + "/" + m + "/" + d;
+    },
+
+    formatDate2(date) {
+      var y = date.substring(0, 4);
+      var m = date.substring(5, 7);
+      var d = date.substring(8, 10);
+      return y + "/" + m + "/" + d;
+    },
+    dateToMs(date) {
+      let result = new Date(date).getTime();
+      return result;
+    },
+    OnAddProduct(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          addDictionaryList(
+            qs.stringify({
+              label: this.form.label,
+              value: this.form.value,
+              description:this.form.description,
+              sort: this.form.sort,
+              type: this.form.type,
+              createTime: this.dateToMs(this.form.createTime),
+              updateTime: this.dateToMs(this.form.updateTime),
+            })
+          ).then(res => {
+            if (res.code === 200) {
+                this.$message({
+                message: res.msg,
+                type: "success"
+                });
+              this.getData();
+              this.EditVisible = false;
+            }
+          });
+        }
+      });
+    }
   }
 };
 </script>
-<style scope>
-.container {
-  width: 95.5%;
-}
-.form-box {
-  width: 100%;
-}
-form.el-form {
-  height: 500px;
-}
-.el-form-item {
-  width: 45%;
-  float: left;
-}
-.btn_block {
-  display: inline-block;
-}
-.btn_blocks {
-  display: block;
-  width: 350px;
-  margin-left: -70px;
-  margin-top: 10px;
+
+<style scoped>
+.handle-box {
+  margin-bottom: 20px;
 }
 .mgb20 {
   margin-bottom: 20px;
 }
 .handle-select {
-  width: 220px;
+  width: 185px;
 }
 .handle-selects {
   width: 445px;
 }
 
 .handle-input {
-  width: 220px;
+  width: 185px;
   display: inline-block;
 }
-</style>
+.del-dialog-cnt {
+  font-size: 16px;
+  text-align: center;
+}
+.table {
+  font-size: 14px;
+}
+.red {
+  color: #ff0000;
+}
+.up_status {
+  color: #67c23a;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.pagination {
+  text-align: center;
+}
+.dialog-footer {
+  width: 100%;
+  margin-bottom: 25px;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
 
+.user-avator {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.user-info-cont {
+  padding-left: 50px;
+  flex: 1;
+  font-size: 14px;
+  color: #999;
+}
+
+.user-info-cont div:first-child {
+  font-size: 30px;
+  color: #222;
+}
+
+.user-info-list {
+  font-size: 14px;
+  color: #999;
+  line-height: 25px;
+}
+
+.user-info-list span {
+  margin-left: 70px;
+}
+.image {
+  height: 200px;
+  width: 100%;
+  display: block;
+}
+.from_item {
+  width: 33%;
+  float: left;
+}
+.from_items {
+  width: 535px;
+  float: left;
+}
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner {
+  width: 185px;
+}
+</style>

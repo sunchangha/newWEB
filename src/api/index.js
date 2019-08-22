@@ -156,3 +156,14 @@ export const editDictionaryList = (query) => {
         data: query
     })
 }
+//查询
+export const DictionaryList = (query) => {
+    return request({
+        url: '/api/dict/dicType',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}

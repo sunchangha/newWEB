@@ -56,7 +56,7 @@
                 </el-table-column>    
                  <el-table-column label="操作" fixed="right" width="200"  align="center">
                     <template slot-scope="scope">
-                        <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                        <el-button type="text" icon="el-icon-edit" @click="OnAddpro(scope.$index, scope.row)">修改</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                         <el-button v-if="scope.row.status==='1'" type="text" icon="el-icon-caret-bottom" class="up_status"  @click="handleDown(scope.$index, scope.row)">下架</el-button>
                         <el-button v-else  type="text" icon="el-icon-caret-top" @click="handleUp(scope.$index, scope.row)">上架</el-button>
