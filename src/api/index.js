@@ -167,3 +167,25 @@ export const DictionaryList = (query) => {
         data: query
     })
 }
+//支付订单查询
+export const getPayOrderRecord = (query) => {
+    return request({
+        url: '/api/order/pagePayOrderRecord',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}
+//购买订单查询
+export const getBuyOrderRecord = (query) => {
+    return request({
+        url: '/api/order/pagePurchaseOrder',
+        method: 'post',
+        headers: {
+            Authorization: localStorage.getItem('Token')
+        },
+        data: query
+    })
+}

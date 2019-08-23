@@ -4,7 +4,8 @@ import axios from 'axios';
 const service = axios.create({
     //这个process.env.BASE_URL在config/dev.evn.js、prod.evn.js里面进行配置：
     // process.env.NODE_ENV === 'development' 来判断是否开发环境
-    baseURL: 'http://192.168.1.77:8666',
+    // baseURL: 'http://192.168.1.77:8666',
+    baseURL: 'http://192.168.1.112:8666',
     // baseURL: '',
     timeout: 5000  // 请求超时时间
 })

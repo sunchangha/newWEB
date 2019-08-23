@@ -2,7 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i>字典设置</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-setting"></i> 字典设置</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
@@ -16,14 +16,6 @@
                             </el-option>
                           </el-select>
                          字典名称：<el-input v-model="search.label" placeholder="请输入字典名称" class="handle-input mr10"></el-input>
-                        <!-- 字典类型：<el-autocomplete
-                            class="inline-input"
-                            v-model="search.type"
-                            :fetch-suggestions="querySearch"
-                            placeholder="请输入字典类型"
-                            :trigger-on-focus="false"
-                            @select="handleSelect"
-                            ></el-autocomplete> -->
                 <div style="margin-top:10px;display:inline-block;padding-left:15px;">
                         <el-button type="primary" icon="el-icon-search" @click="OnSearch">搜索</el-button>
                         <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAdd">添加字典信息</el-button>
@@ -52,7 +44,6 @@
                 </el-table-column>
                  <el-table-column label="操作" fixed="right" width="200"  align="center">
                     <template slot-scope="scope">
-                        <!-- <el-button type="text" icon="el-icon-edit" @click="handleAdd(scope.$index, scope.row)">添加</el-button> -->
                         <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                         <el-button type="text" icon="el-icon-delete" class="red" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
@@ -71,11 +62,6 @@
                 <div class="text item">
                     <el-form  :model="form"  :rules="rules"  ref="ruleForm" label-width="90px">
                         <div>
-                           <!-- <div class="from_item" prop="id"> 
-                                <el-form-item label="id"  >
-                                    <el-input v-model="form.id" disabled clearable placeholder="请输入id" class="handle-input mr10"></el-input>
-                                </el-form-item>
-                            </div > -->
                             <div class="from_item">
                                 <el-form-item label="字典名称" prop="label">
                                     <el-input v-model="form.label" clearable placeholder="请输入字典名称" class="handle-input mr10"></el-input>
@@ -101,18 +87,6 @@
                                     <el-input v-model="form.sort" clearable placeholder="请输入" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
-                             <!-- <div class="from_item">
-                                <el-form-item label="创建时间" prop="createTime">
-                                  <el-date-picker v-model="form.createTime" width="160" type="datetime" placeholder="选择日期时间">
-                                </el-date-picker>
-                                </el-form-item>
-                            </div >
-                            <div class="from_item">
-                                <el-form-item label="更新时间" prop="updateTime">
-                                  <el-date-picker v-model="form.updateTime" width="160" type="datetime" placeholder="选择日期时间">
-                                </el-date-picker>
-                                </el-form-item>
-                            </div > -->
                         </div>                 
                     </el-form>
                 </div>
@@ -132,11 +106,6 @@
                 <div class="text item">
                     <el-form  :model="editform"  :rules="rules"  ref="ruleForms" label-width="100px">
                              <div>
-                            <!-- <div class="from_item" prop="id"> 
-                                <el-form-item label="id"  >
-                                    <el-input v-model="editform.id" disabled clearable placeholder="请输入id" class="handle-input mr10"></el-input>
-                                </el-form-item>
-                            </div > -->
                             <div class="from_item">
                                 <el-form-item label="字典名称" prop="label">
                                     <el-input v-model="editform.label" clearable placeholder="请输入字典名称" class="handle-input mr10"></el-input>
@@ -162,18 +131,6 @@
                                     <el-input v-model="editform.sort" clearable placeholder="请输入" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
-                             <!-- <div class="from_item">
-                                <el-form-item label="创建时间" prop="createTime">
-                                  <el-date-picker v-model="editform.createTime" width="160" type="datetime" placeholder="选择日期时间">
-                                </el-date-picker>
-                                </el-form-item>
-                            </div >
-                            <div class="from_item">
-                                <el-form-item label="更新时间" prop="updateTime">
-                                  <el-date-picker v-model="editform.updateTime" width="160" type="datetime" placeholder="选择日期时间">
-                                </el-date-picker>
-                                </el-form-item>
-                            </div > -->
                             </div>                   
                     </el-form>
                 </div>
@@ -264,11 +221,6 @@ export default {
       formLabelWidth: "120px",
       dialogFormVisible: false,
       tableData: [],
-      //------图片上传
-      dialogImageUrl: "",
-      dialogVisible: false,
-      //文件上传
-      importHeaders: { Authorization: localStorage.getItem("Token") },
       //分页
       total: 1,
       currentPage: 1,
@@ -296,9 +248,6 @@ export default {
       return y + "-" + MM + "-" + d + " " + h + ":" + m + ":" + s;
     }
   },
-  //   mounted() {
-  //       this.restaurants = this.selectData;
-  //     },
   created() {
     this.getData();
     this.getDictionaryList();
@@ -335,7 +284,6 @@ export default {
       //一次显示多条val
       this.getData();
     },
-
     getDictionaryList() {
       DictionaryList(qs.stringify({})).then(res => {
         this.selectData = res.data;
@@ -374,8 +322,6 @@ export default {
       this.editform.description = row.description;
       this.editform.sort = row.sort;
       this.editform.type = row.type;
-      //   this.editform.createTime = row.createTime;
-      //   this.editform.updateTime = row.updateTime;
     },
     closeDialog(formName) {
       this.$refs[formName].resetFields();
@@ -392,8 +338,6 @@ export default {
               description: this.editform.description,
               sort: this.editform.sort,
               type: this.editform.type
-              //   createTime: this.dateToMs(this.editform.createTime),
-              //   updateTime: this.dateToMs(this.editform.updateTime),
             })
           ).then(res => {
             if (res.code === 200) {
@@ -508,96 +452,5 @@ export default {
 </script>
 
 <style scoped>
-.handle-box {
-  margin-bottom: 20px;
-}
-.mgb20 {
-  margin-bottom: 20px;
-}
-.handle-select {
-  width: 185px;
-}
-.handle-selects {
-  width: 445px;
-}
-
-.handle-input {
-  width: 185px;
-  display: inline-block;
-}
-.del-dialog-cnt {
-  font-size: 16px;
-  text-align: center;
-}
-.table {
-  font-size: 14px;
-}
-.red {
-  color: #ff0000;
-}
-.up_status {
-  color: #67c23a;
-}
-.mr10 {
-  margin-right: 10px;
-}
-.pagination {
-  text-align: center;
-}
-.dialog-footer {
-  width: 100%;
-  margin-bottom: 25px;
-}
-.user-info {
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 2px solid #ccc;
-  margin-bottom: 20px;
-}
-
-.user-avator {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-}
-
-.user-info-cont {
-  padding-left: 50px;
-  flex: 1;
-  font-size: 14px;
-  color: #999;
-}
-
-.user-info-cont div:first-child {
-  font-size: 30px;
-  color: #222;
-}
-
-.user-info-list {
-  font-size: 14px;
-  color: #999;
-  line-height: 25px;
-}
-
-.user-info-list span {
-  margin-left: 70px;
-}
-.image {
-  height: 200px;
-  width: 100%;
-  display: block;
-}
-.from_item {
-  width: 33%;
-  float: left;
-}
-.from_items {
-  width: 535px;
-  float: left;
-}
-.el-date-editor.el-input,
-.el-date-editor.el-input__inner {
-  width: 185px;
-}
+@import "../../../assets/css/public.css";
 </style>

@@ -74,7 +74,7 @@
                         ]
                     },
                     {
-                        icon: 'el-icon-lx-calendar',
+                        icon: 'el-icon-setting',
                         index: '4',
                         title: '数据字典',
                         subs: [
@@ -82,6 +82,21 @@
                                 index: 'settingDictionary',
                                 title: '字典设置'
                             }
+                        ]
+                    },
+                     {
+                        icon: 'el-icon-lx-calendar',
+                        index: '5',
+                        title: '订单管理',
+                        subs: [
+                           {
+                                index: 'payOrder',
+                                title: '支付订单'
+                            },
+                            {
+                                index: 'buyOrder',
+                                title: '购买订单'
+                            },
                         ]
                     },
                     // {

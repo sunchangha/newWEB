@@ -44,6 +44,17 @@ export default new Router({
                     component: resolve => require(['../components/pages/Dictionary/settingDictionary.vue'], resolve),
                     meta: { title: '字典设置' }
                 },
+                {
+                    path: '/payOrder',
+                    component: resolve => require(['../components/pages/OrderManagement/payOrder.vue'], resolve),
+                    meta: { title: '支付订单' }
+                },
+                {
+                    path: '/buyOrder',
+                    component: resolve => require(['../components/pages/OrderManagement/buyOrder.vue'], resolve),
+                    meta: { title: '购买订单' }
+                },
+                
                 
                 // {
                 //     path: '/table',
