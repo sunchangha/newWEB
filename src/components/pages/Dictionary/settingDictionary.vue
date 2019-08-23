@@ -254,7 +254,6 @@ export default {
   },
   methods: {
     handleSelect(item) {
-      console.log(item);
     },
     querySearch(queryString, cb) {
       var restaurants = this.restaurants;
@@ -315,7 +314,6 @@ export default {
     //产品修改方法
     handleEdit(index, row) {
       (this.dialogFormVisible = true), (this.curIndex = row.id);
-      console.log("row", row);
       this.editform.id = row.id;
       this.editform.label = row.label;
       this.editform.value = row.value;
@@ -374,7 +372,6 @@ export default {
         })
       ).then(res => {
         this.delVisible = false;
-        console.log("res", res);
         if (res.code === 200) {
           this.getData();
           this.$message({

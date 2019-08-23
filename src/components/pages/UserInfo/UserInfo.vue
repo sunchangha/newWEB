@@ -268,7 +268,6 @@
             },
             handleEdit(index, row) {
                 this.RowInFo = row
-                console.log("row",row)
                 this.EditVisible = true
                 GetDataBankCardList(qs.stringify({
                     userId:row.id

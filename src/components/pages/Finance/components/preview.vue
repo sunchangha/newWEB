@@ -150,7 +150,6 @@ export default {
     }
   },
   created() {
-    console.log("previewData", this.previewData);
   },
   computed: {},
   methods: {}

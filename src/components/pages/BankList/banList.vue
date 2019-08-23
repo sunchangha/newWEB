@@ -2,7 +2,7 @@
     <div class="table">
         <div class="crumbs">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-lx-cascades"></i>银行定存</el-breadcrumb-item>
+                <el-breadcrumb-item><i class="el-icon-s-finance"></i> 银行定存</el-breadcrumb-item>
             </el-breadcrumb>
         </div>
         <div class="container">
