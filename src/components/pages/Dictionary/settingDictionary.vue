@@ -7,22 +7,38 @@
         </div>
         <div class="container">
             <div class="handle-box" >
-                字典名称：<el-select v-model="search.label" clearable placeholder="请选择" class="handle-input mr10">
-                            <el-option v-for="item in selectData" :key="item.value" :label="item.text" :value="item.value"></el-option>
-                        </el-select>
-                <div style="margin-top:10px;display:inline-block">
+                字典分类：<el-select v-model="search.type" filterable placeholder="请选择">
+                            <el-option
+                              v-for="item in selectData"
+                              :key="item.value"
+                              :label="item.text"
+                              :value="item.value">
+                            </el-option>
+                          </el-select>
+                         字典名称：<el-input v-model="search.label" placeholder="请输入字典名称" class="handle-input mr10"></el-input>
+                        <!-- 字典类型：<el-autocomplete
+                            class="inline-input"
+                            v-model="search.type"
+                            :fetch-suggestions="querySearch"
+                            placeholder="请输入字典类型"
+                            :trigger-on-focus="false"
+                            @select="handleSelect"
+                            ></el-autocomplete> -->
+                <div style="margin-top:10px;display:inline-block;padding-left:15px;">
                         <el-button type="primary" icon="el-icon-search" @click="OnSearch">搜索</el-button>
-                        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAdd">添加产品信息</el-button>
+                        <el-button type="primary" icon="el-icon-circle-plus-outline" @click="handleAdd">添加字典信息</el-button>
                     </div>
             </div>
             <el-table :data="tableData" border class="table">
                 <el-table-column type="index" label="序号" width="50" align="center">
                 </el-table-column>
-                <el-table-column prop="label" label="字典名称"  align="center">
-                </el-table-column>
                 <el-table-column prop="type" label="字典类型"   align="center">
                 </el-table-column>
-                <el-table-column prop="description" label="字典描述"  align="center">
+                <el-table-column prop="description" label="类型描述"  align="center">
+                </el-table-column>
+                <el-table-column prop="label" label="字典名称"  align="center">
+                </el-table-column>
+                <el-table-column prop="value" label="字典值"  align="center">
                 </el-table-column>
                 <el-table-column prop="createTime" label="创建时间"   align="center">
                     <template slot-scope="scope">
@@ -66,8 +82,8 @@
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="value" prop="value">
-                                    <el-input v-model="form.value" clearable placeholder="请输入value" class="handle-input mr10"></el-input>
+                                <el-form-item label="字典值" prop="value">
+                                    <el-input v-model="form.value" clearable placeholder="请输入字典值" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                              <div class="from_item">
@@ -76,16 +92,16 @@
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="字典描述"  prop="description">
+                                <el-form-item label="类型描述"  prop="description">
                                     <el-input v-model="form.description" clearable placeholder="请输入字典描述" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="sort" prop="sort">
-                                    <el-input v-model="form.sort" clearable placeholder="请输入sort" class="handle-input mr10"></el-input>
+                                <el-form-item label="排序" prop="sort">
+                                    <el-input v-model="form.sort" clearable placeholder="请输入" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
-                             <div class="from_item">
+                             <!-- <div class="from_item">
                                 <el-form-item label="创建时间" prop="createTime">
                                   <el-date-picker v-model="form.createTime" width="160" type="datetime" placeholder="选择日期时间">
                                 </el-date-picker>
@@ -96,7 +112,7 @@
                                   <el-date-picker v-model="form.updateTime" width="160" type="datetime" placeholder="选择日期时间">
                                 </el-date-picker>
                                 </el-form-item>
-                            </div >
+                            </div > -->
                         </div>                 
                     </el-form>
                 </div>
@@ -108,7 +124,7 @@
         </el-dialog>
 
         <!-- 修改产品信息 -->
-        <el-dialog title="修改银行定存信息" :visible.sync="dialogFormVisible"  center fullscreen @close="closeDialog('ruleForms')">
+        <el-dialog title="修改字典信息" :visible.sync="dialogFormVisible"  center fullscreen @close="closeDialog('ruleForms')">
            <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>修改字典信息</span>
@@ -116,19 +132,19 @@
                 <div class="text item">
                     <el-form  :model="editform"  :rules="rules"  ref="ruleForms" label-width="100px">
                              <div>
-                            <div class="from_item" prop="id"> 
+                            <!-- <div class="from_item" prop="id"> 
                                 <el-form-item label="id"  >
                                     <el-input v-model="editform.id" disabled clearable placeholder="请输入id" class="handle-input mr10"></el-input>
                                 </el-form-item>
-                            </div >
+                            </div > -->
                             <div class="from_item">
                                 <el-form-item label="字典名称" prop="label">
                                     <el-input v-model="editform.label" clearable placeholder="请输入字典名称" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="value" prop="value">
-                                    <el-input v-model="editform.value" clearable placeholder="请输入value" class="handle-input mr10"></el-input>
+                                <el-form-item label="字典值" prop="value">
+                                    <el-input v-model="editform.value" clearable placeholder="请输入字典值" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                              <div class="from_item">
@@ -137,16 +153,16 @@
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="字典描述"  prop="description">
+                                <el-form-item label="类型描述"  prop="description">
                                     <el-input v-model="editform.description" clearable placeholder="请输入字典描述" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
                             <div class="from_item">
-                                <el-form-item label="sort" prop="sort">
-                                    <el-input v-model="editform.sort" clearable placeholder="请输入sort" class="handle-input mr10"></el-input>
+                                <el-form-item label="排序" prop="sort">
+                                    <el-input v-model="editform.sort" clearable placeholder="请输入" class="handle-input mr10"></el-input>
                                 </el-form-item>
                             </div >
-                             <div class="from_item">
+                             <!-- <div class="from_item">
                                 <el-form-item label="创建时间" prop="createTime">
                                   <el-date-picker v-model="editform.createTime" width="160" type="datetime" placeholder="选择日期时间">
                                 </el-date-picker>
@@ -157,7 +173,7 @@
                                   <el-date-picker v-model="editform.updateTime" width="160" type="datetime" placeholder="选择日期时间">
                                 </el-date-picker>
                                 </el-form-item>
-                            </div >
+                            </div > -->
                             </div>                   
                     </el-form>
                 </div>
@@ -197,16 +213,17 @@ export default {
       statusId: "",
       editBQ: "",
       search: {
-       label:'',
-       type:'',
-       description:''
+        label: "",
+        type: "",
+        description: ""
       },
+      restaurants: [],
       // 下拉选项框
       form: {
         id: "",
         label: "",
         value: "",
-        description:"",
+        description: "",
         sort: "",
         type: "",
         createTime: "",
@@ -216,13 +233,13 @@ export default {
         id: "",
         label: "",
         value: "",
-        description:"",
+        description: "",
         sort: "",
         type: "",
         createTime: "",
         updateTime: ""
       },
-      selectData:[],
+      selectData: [],
       rules: {
         name: [{ required: true, message: "请输入产品名称", trigger: "blur" }],
         telephone: [
@@ -279,11 +296,32 @@ export default {
       return y + "-" + MM + "-" + d + " " + h + ":" + m + ":" + s;
     }
   },
+  //   mounted() {
+  //       this.restaurants = this.selectData;
+  //     },
   created() {
     this.getData();
-    this.getDictionaryList()
+    this.getDictionaryList();
   },
   methods: {
+    handleSelect(item) {
+      console.log(item);
+    },
+    querySearch(queryString, cb) {
+      var restaurants = this.restaurants;
+      var results = queryString
+        ? restaurants.filter(this.createFilter(queryString))
+        : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return restaurant => {
+        return (
+          restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===0
+        );
+      };
+    },
     editChangeData(val) {
       this.editBQ = this.getProductLabels(val);
     },
@@ -297,21 +335,19 @@ export default {
       //一次显示多条val
       this.getData();
     },
-    
-    getDictionaryList(){
-        DictionaryList(
-        qs.stringify({
-        })
-      ).then(res => {
-        this.selectData = res.data
-      });
 
+    getDictionaryList() {
+      DictionaryList(qs.stringify({})).then(res => {
+        this.selectData = res.data;
+        this.restaurants = res.data;
+      });
     },
     // 获取表格getData数据
     getData() {
       searchDictionaryList(
         qs.stringify({
-          type: this.search.label,
+          type: this.search.type,
+          label: this.search.label,
           page: this.currentPage,
           size: this.TotalNum
         })
@@ -326,22 +362,20 @@ export default {
       this.getData();
     },
     handleAdd() {
-      this.EditVisible = true
-    //   this.form.description = row.description;
-    //   this.form.type = row.type;
+      this.EditVisible = true;
     },
     //产品修改方法
     handleEdit(index, row) {
       (this.dialogFormVisible = true), (this.curIndex = row.id);
-      console.log("row",row)
+      console.log("row", row);
       this.editform.id = row.id;
       this.editform.label = row.label;
       this.editform.value = row.value;
       this.editform.description = row.description;
       this.editform.sort = row.sort;
       this.editform.type = row.type;
-      this.editform.createTime = row.createTime;
-      this.editform.updateTime = row.updateTime;
+      //   this.editform.createTime = row.createTime;
+      //   this.editform.updateTime = row.updateTime;
     },
     closeDialog(formName) {
       this.$refs[formName].resetFields();
@@ -355,11 +389,11 @@ export default {
               id: this.editform.id,
               label: this.editform.label,
               value: this.editform.value,
-              description:this.editform.description,
+              description: this.editform.description,
               sort: this.editform.sort,
-              type: this.editform.type,
-              createTime: this.dateToMs(this.editform.createTime),
-              updateTime: this.dateToMs(this.editform.updateTime),
+              type: this.editform.type
+              //   createTime: this.dateToMs(this.editform.createTime),
+              //   updateTime: this.dateToMs(this.editform.updateTime),
             })
           ).then(res => {
             if (res.code === 200) {
@@ -396,7 +430,7 @@ export default {
         })
       ).then(res => {
         this.delVisible = false;
-        console.log("res",res)
+        console.log("res", res);
         if (res.code === 200) {
           this.getData();
           this.$message({
@@ -408,7 +442,7 @@ export default {
             message: "请退出重新登陆",
             type: "success"
           });
-        }else {
+        } else {
           this.$message({
             message: res.msg,
             type: "error"
@@ -450,18 +484,18 @@ export default {
             qs.stringify({
               label: this.form.label,
               value: this.form.value,
-              description:this.form.description,
+              description: this.form.description,
               sort: this.form.sort,
-              type: this.form.type,
-              createTime: this.dateToMs(this.form.createTime),
-              updateTime: this.dateToMs(this.form.updateTime),
+              type: this.form.type
+              //   createTime: this.dateToMs(this.form.createTime),
+              //   updateTime: this.dateToMs(this.form.updateTime),
             })
           ).then(res => {
             if (res.code === 200) {
-                this.$message({
+              this.$message({
                 message: res.msg,
                 type: "success"
-                });
+              });
               this.getData();
               this.EditVisible = false;
             }
